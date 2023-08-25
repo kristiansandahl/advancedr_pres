@@ -8,17 +8,18 @@ data <- tornados %>%
         mutate(id = paste(date,om,sep = "-")) %>% 
         select(id,yr,st,slat,slon,mag) 
 # count the total number of tornados for each states since 1950
+
 freq_st <- data %>% 
-            group_by(st, mag = as.factor(mag), .drop = F) %>% 
-            summarise(total_tornados = n(), .groups = "drop") %>% 
-            arrange(desc(total_tornados))
+    group_by(st, mag = as.factor(mag), .drop = F) %>% 
+    summarise(total_tornados = n(), .groups = "drop") %>% 
+    arrange(desc(total_tornados))
 
 
 ### Map
 
 # Load the usastates data
 usastates <- map_data("state")
-?map_data
+
 
 # Starting location of the tornados 
 tornados_points <- data.frame(
@@ -73,4 +74,3 @@ url <- "https://scied.ucar.edu/sites/default/files/interactives/where-tornadoes/
 image_scale(image_read(url), "700")
     
 
-?scale_fill_gradient

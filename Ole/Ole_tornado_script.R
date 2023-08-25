@@ -15,6 +15,11 @@ tornados %>%
         number.tornados = n_distinct(om)) %>%
     ggplot(., aes(x = yr, y = number.tornados))+
     geom_point()+
+    labs(
+        title = "Number of Tornados pr year (1050-2020)",
+        x = "Year",
+        y = "Number of Tornados"
+    )+
     theme_bw()
 
 # How many tornados per year? ----
@@ -89,6 +94,11 @@ tornados %>%
     geom_point()+
     scale_x_continuous(breaks = seq(1,12,1))+
     geom_smooth()+
+    labs(
+        title = "Number of Tornadoes pr Month",
+        x = "month",
+        y = "number of Tornados"
+    ) +
     theme_bw()
 
 #Seasonality ---- Months by decade
@@ -103,7 +113,12 @@ tornados %>%
     geom_point()+
     scale_x_continuous(breaks = seq(1,12,1))+
     geom_smooth()+
-    facet_wrap(~decade)
+    facet_wrap(~decade) +
+    labs(
+        title = "Number of Tornadoes pr Month",
+        x = "month",
+        y = "number of Tornados"
+    ) +
     theme_bw()
 
 

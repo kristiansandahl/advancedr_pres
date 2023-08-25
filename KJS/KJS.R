@@ -47,6 +47,19 @@ tornados %>%
     facet_wrap(~mag) +
     theme_bw()
 
+## histogram 1 ----
+tornados %>% 
+    ggplot(aes(x=mag, fill = mag)) +
+    geom_histogram(stat = "count", show.legend = FALSE) +
+    labs(
+        title = "Number of Tornados by Magnitude in the USA \n(1950-2020)",
+        x = "Magnitude",
+        y = "Number of \nTornados",
+        fill = ""
+    ) +
+    theme_bw()
+
+
 
 ## barplot ----
 tornados %>%
