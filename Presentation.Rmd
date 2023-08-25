@@ -13,17 +13,13 @@ knitr::opts_chunk$set(echo = TRUE)
 
 Team Tornado
 
-Citation:
-
-GISTEMP Team, 2023: GISS Surface Temperature Analysis (GISTEMP), version 4. NASA Goddard Institute for Space Studies. Dataset accessed 2023-07-09 at <https://data.giss.nasa.gov/gistemp/>.
-
-This data presents nor '*normal'* temperatures, ie. the average over the 30-year period 1951-1980 for that place and time of year.
+Citation: Tidy Tuesday: <https://github.com/rfordatascience/tidytuesday/blob/master/data/2023/2023-05-16/readme.md>
 
 ## Load libraries
 
 ```{r include=FALSE}
 library(tidyverse)
-library(ggplot2)
+library(mapdata)
 ```
 
 ## Load data
@@ -31,8 +27,6 @@ library(ggplot2)
 ```{r cars, include=FALSE}
 tornados <- readr::read_csv('https://raw.githubusercontent.com/rfordatascience/tidytuesday/master/data/2023/2023-05-16/tornados.csv')
 ```
-
-## Explore data
 
 ## Questions
 
