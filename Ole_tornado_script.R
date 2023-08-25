@@ -7,6 +7,7 @@ summary(tornados)
 
 ggplot(data = tornados, aes(x = inj))+
     geom_boxplot()
+
 # How many tornados per year? ----
 tornados %>%
     group_by(yr) %>%
@@ -14,6 +15,16 @@ tornados %>%
         number.tornados = n_distinct(om)) %>%
     ggplot(., aes(x = yr, y = number.tornados))+
     geom_point()+
+    theme_bw()
+
+# How many tornados per year? ----
+tornados %>%
+    group_by(yr) %>%
+    summarise(
+        number.tornados = n_distinct(om)) %>%
+    ggplot(., aes(x = yr, y = number.tornados))+
+    geom_point()+
+    geom_smooth(mehthod = "lm")+
     theme_bw()
 
 # How many tornados per year? ----
@@ -68,13 +79,59 @@ tornados %>%
     geom_smooth()+
     theme_bw()
 
+#Seasonality ---- Months overall
+tornados %>%
+    filter(!is.na(mag))%>%
+    group_by(mo) %>%
+    summarise(
+        number.tornados = n_distinct(om), .groups = "keep") %>%
+    ggplot(., aes(x = mo, y = number.tornados))+
+    geom_point()+
+    scale_x_continuous(breaks = seq(1,12,1))+
+    geom_smooth()+
+    theme_bw()
 
+#Seasonality ---- Months by decade
+tornados %>%
+    filter(!is.na(mag))%>%
+    mutate(decade = as.integer((yr - 1950)/10) * 10 + 1950,
+           decade = as.factor(decade)) %>%
+    group_by(mo, decade) %>%
+    summarise(
+        number.tornados = n_distinct(om), .groups = "keep") %>%
+    ggplot(., aes(x = mo, y = number.tornados))+
+    geom_point()+
+    scale_x_continuous(breaks = seq(1,12,1))+
+    geom_smooth()+
+    facet_wrap(~decade)
+    theme_bw()
+
+
+# Seasonality faceted by magnitude ----
+
+tornados %>%
+    filter(!is.na(mag))%>%
+    mutate(decade = as.integer((yr - 1950)/10) * 10 + 1950,
+           decade = as.factor(decade)) %>%
+    group_by(mo, decade, mag) %>%
+    summarise(
+        number.tornados = n_distinct(om), .groups = "keep") %>%
+    ggplot(., aes(x = mo, y = number.tornados, color = as.factor(mag)))+
+    geom_point()+
+    scale_x_continuous(breaks = seq(1,12,1))+
+    scale_y_continuous(breaks = seq(0, 1500, 500))+
+    geom_smooth(span = 1, se = T)+
+    facet_wrap(~decade)+
+    labs(title = "Number and Magnitude of Tornados per Decade", 
+         x = "Month",
+         y = "Number of Tornados",
+         color = "Magnitude")+
+    theme_bw()
 
 # DataExplorer ----
 library(DataExplorer)
 
 create_report(tornados)
-
 
 
 
