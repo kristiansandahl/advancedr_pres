@@ -51,8 +51,7 @@ tornados %>%
 ## barplot ----
 tornados %>%
     mutate(decade = as.integer((yr - 1950) / 10) * 10 + 1950) %>% 
-    mutate(decade = as.factor(decade)
-    ) %>% 
+    mutate(decade = as.factor(decade)) %>% 
     group_by(decade, mag) %>% 
     ggplot(aes(x = decade, y = no_tornados, group = mag, fill = mag)) +
     geom_bar(stat = "identity", width=0.4 ) +
@@ -201,7 +200,7 @@ dimdesc(res.pca)
 
 
 fviz_pca_biplot(res.pca,
-                axes = c(1,2),
+                axes = c(1,3),
                 geom.var = c("arrow", "text"),
                 habillage = "mag",
                 repel = F,
