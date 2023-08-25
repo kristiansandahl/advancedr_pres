@@ -138,6 +138,7 @@ tornados %>%
     xlab("")
 
 
+## injuries pr decade ----
 
 
 
