@@ -61,9 +61,10 @@ merged_data2 %>%
     ggplot() +
     geom_polygon(aes(x = long, y = lat, group = group), fill = "white", color = "black") +
     geom_polygon(aes(x = long, y = lat, group = group, fill = total_tornados), color = "black") +
-    scale_fill_gradient(low = "lightblue", high = "darkblue") +
+    scale_fill_gradient(low = "lightblue", high = "darkblue", na.value = "#D2D7D9", trans = "log") +
     labs(title = "US Map", subtitle = "Color shades represent the frequency of tornados") +
     theme_minimal() +
+    theme(legend.position = "none")+
     facet_wrap(~as.factor(mag))+
     geom_text(data = state_centers, aes(x = center_long, y = center_lat - 0.8, label = total_tornados), hjust = 0.7, color = "yellow")
     
@@ -71,3 +72,5 @@ merged_data2 %>%
 url <- "https://scied.ucar.edu/sites/default/files/interactives/where-tornadoes/tornadoMap.png"
 image_scale(image_read(url), "700")
     
+
+?scale_fill_gradient
